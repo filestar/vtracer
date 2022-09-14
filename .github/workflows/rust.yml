@@ -25,6 +25,14 @@ jobs:
       run: cd cmdapp && cargo build --release --verbose --target x86_64-pc-windows-msvc
     - name: Run tests
       run: cargo test --verbose
+    - uses: actions/upload-artifact@v3
+      with:
+        name: win-x86
+        path: target/i686-pc-windows-msvc/vtracer.exe
+    - uses: actions/upload-artifact@v3
+      with:
+        name: win-x64
+        path: target/x86_64-pc-windows-msvc/vtracer.exe
 
   build-macos:
     name: Build macOS targets
@@ -40,3 +48,11 @@ jobs:
       run: cd cmdapp && cargo build --release --verbose --target x86_64-apple-darwin
     - name: Run tests
       run: cargo test --verbose
+    - uses: actions/upload-artifact@v3
+      with:
+        name: osx-arm64
+        path: target/aarch64-apple-darwin/vtracer
+    - uses: actions/upload-artifact@v3
+      with:
+        name: osx-x64
+        path: target/x86_64-apple-darwin/vtracer
