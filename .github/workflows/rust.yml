@@ -16,7 +16,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build
-      run: cargo build --verbose
+    - name: Ensure all necessary targets are installed
+      run: rustup target add aarch64-apple-darwin x86_64-apple-darwin i686-pc-windows-msvc x86_64-pc-windows-msvc
+    - name: Enter CLI directory
+      run: cd cmdapp
+    - name: Build CLI for osx-arm64
+      run: cargo build --release --verbose --target aarch64-apple-darwin
+    - name: Build CLI for osx-x64
+      run: cargo build --release --verbose --target x86_64-apple-darwin
+    - name: Build CLI for win-x86
+      run: cargo build --release --verbose --target i686-pc-windows-msvc
+    - name: Build CLI for win-x64
+      run: cargo build --release --verbose --target x86_64-pc-windows-msvc
     - name: Run tests
       run: cargo test --verbose
