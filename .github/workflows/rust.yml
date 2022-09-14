@@ -28,11 +28,11 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: win-x86
-        path: target/i686-pc-windows-msvc/vtracer.exe
+        path: target/i686-pc-windows-msvc/release/vtracer.exe
     - uses: actions/upload-artifact@v3
       with:
         name: win-x64
-        path: target/x86_64-pc-windows-msvc/vtracer.exe
+        path: target/x86_64-pc-windows-msvc/release/vtracer.exe
 
   build-macos:
     name: Build macOS targets
@@ -51,8 +51,8 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: osx-arm64
-        path: target/aarch64-apple-darwin/vtracer
+        path: target/aarch64-apple-darwin/release/vtracer
     - uses: actions/upload-artifact@v3
       with:
         name: osx-x64
-        path: target/x86_64-apple-darwin/vtracer
+        path: target/x86_64-apple-darwin/release/vtracer
