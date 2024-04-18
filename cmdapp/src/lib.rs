@@ -1,4 +1,4 @@
-// Copyright 2020 Tsang Hao Fung. See the COPYRIGHT
+// Copyright 2023 Tsang Hao Fung. See the COPYRIGHT
 // file at the top-level directory of this distribution and at
 // http://rust-lang.org/COPYRIGHT.
 //
@@ -10,8 +10,13 @@
 
 mod config;
 mod converter;
+#[cfg(feature = "python-binding")]
+mod python;
 mod svg;
 
 pub use config::*;
 pub use converter::*;
+#[cfg(feature = "python-binding")]
+pub use python::*;
 pub use svg::*;
+pub use visioncortex::ColorImage;
