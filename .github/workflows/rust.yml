@@ -27,11 +27,11 @@ jobs:
       run: cargo test --verbose
     - uses: actions/upload-artifact@v3
       with:
-        name: vtracer.0.5.0.win-x86
+        name: vtracer.0.6.4.win-x86
         path: target/i686-pc-windows-msvc/release/vtracer.exe
     - uses: actions/upload-artifact@v3
       with:
-        name: vtracer.0.5.0.win-x64
+        name: vtracer.0.6.4.win-x64
         path: target/x86_64-pc-windows-msvc/release/vtracer.exe
 
   build-macos:
@@ -50,9 +50,9 @@ jobs:
       run: cargo test --verbose
     - uses: actions/upload-artifact@v3
       with:
-        name: vtracer.0.5.0.osx-arm64
+        name: vtracer.0.6.4.osx-arm64
         path: target/aarch64-apple-darwin/release/vtracer
     - uses: actions/upload-artifact@v3
       with:
-        name: vtracer.0.5.0.osx-x64
+        name: vtracer.0.6.4.osx-x64
         path: target/x86_64-apple-darwin/release/vtracer
