@@ -19,7 +19,7 @@ mod face;
 mod fit;
 mod graph;
 
-pub use compose::compose_mosaic;
+pub use compose::{compose_label_map, compose_mosaic};
 pub use fit::{
     FittedGeom, FittedSegment, PixelSegmentFitter, PolygonSegmentFitter, SegmentFitter,
     SplineSegmentFitter,

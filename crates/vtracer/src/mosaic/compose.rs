@@ -35,8 +35,24 @@ pub fn compose_mosaic(
 ) -> VectorDoc {
     let mut map = LabelMap::from_segmentation(seg);
     map.merge_similar(merge_diff);
-    let graph = BoundaryGraph::extract(&map);
-    let faces = assemble(&graph, &map);
+    let mut doc = VectorDoc::new(seg.width, seg.height);
+    for (region, path) in compose_label_map(&map, fitter, passes) {
+        doc.shapes.push(Shape { paint: map.paints[region as usize], path });
+    }
+    doc
+}
+
+/// The mosaic stages for a caller that already has a flat partition (a frontend
+/// that produces a label map directly, such as Filestar's ftracer): boundary
+/// graph → faces → fit each segment once → paths. Returns one path per face,
+/// with the face's region id, in face order. No colour merging is done here.
+pub fn compose_label_map(
+    map: &LabelMap,
+    fitter: &dyn SegmentFitter,
+    passes: &[Box<dyn CurvePass>],
+) -> Vec<(u32, MultiPath)> {
+    let graph = BoundaryGraph::extract(map);
+    let faces = assemble(&graph, map);
 
     // Fit every segment exactly once; both adjacent faces share the result.
     let fitted: Vec<FittedSegment> = graph
@@ -56,17 +72,14 @@ pub fn compose_mosaic(
         })
         .collect();
 
-    let mut doc = VectorDoc::new(seg.width, seg.height);
+    let mut out = Vec::with_capacity(faces.len());
     for face in &faces {
         let path = build_path(face, &fitted, &graph);
         if !path.is_empty() {
-            doc.shapes.push(Shape {
-                paint: map.paints[face.region as usize],
-                path,
-            });
+            out.push((face.region, path));
         }
     }
-    doc
+    out
 }
 
 fn build_path(face: &Face, fitted: &[FittedSegment], _graph: &BoundaryGraph) -> MultiPath {
