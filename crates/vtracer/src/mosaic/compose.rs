@@ -82,7 +82,7 @@ pub fn compose_label_map(
     out
 }
 
-fn build_path(face: &Face, fitted: &[FittedSegment], _graph: &BoundaryGraph) -> MultiPath {
+pub(super) fn build_path(face: &Face, fitted: &[FittedSegment], _graph: &BoundaryGraph) -> MultiPath {
     let mut mp = MultiPath::new();
     for contour in &face.contours {
         let mut sub = SubPath::new();

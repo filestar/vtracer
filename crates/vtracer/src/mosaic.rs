@@ -18,6 +18,7 @@ mod compose;
 mod face;
 mod fit;
 mod graph;
+mod prepared;
 
 pub use compose::{compose_label_map, compose_mosaic};
 pub use fit::{
@@ -25,6 +26,9 @@ pub use fit::{
     SplineSegmentFitter,
 };
 pub use graph::{BoundaryGraph, Node, Segment, SegRef};
+pub use face::{Contour, Face};
+pub use prepared::context::{PipelineContext,Action};
+pub use prepared::{FaceUse, PreparedTopology, SegmentIncidence, TopologyBudget, TopologyError};
 
 use crate::ir::{Paint, Segmentation};
 
